@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F05558D824D4F8D900074425 /* BNet.podspec in Resources */ = {isa = PBXBuildFile; fileRef = F05558D724D4F8D900074425 /* BNet.podspec */; };
 		F0C74DB624D4ECF600847EB0 /* BNet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0C74DAC24D4ECF600847EB0 /* BNet.framework */; };
 		F0C74DBB24D4ECF600847EB0 /* BNetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C74DBA24D4ECF600847EB0 /* BNetTests.swift */; };
 		F0C74DBD24D4ECF600847EB0 /* BNet.h in Headers */ = {isa = PBXBuildFile; fileRef = F0C74DAF24D4ECF600847EB0 /* BNet.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -67,6 +68,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F05558D724D4F8D900074425 /* BNet.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; fileEncoding = 4; path = BNet.podspec; sourceTree = "<group>"; };
 		F0C74DAC24D4ECF600847EB0 /* BNet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BNet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0C74DAF24D4ECF600847EB0 /* BNet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BNet.h; sourceTree = "<group>"; };
 		F0C74DB024D4ECF600847EB0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -143,6 +145,7 @@
 			children = (
 				F0C74DDE24D4F00900847EB0 /* LICENSE */,
 				F0C74DDD24D4F00900847EB0 /* README.md */,
+				F05558D724D4F8D900074425 /* BNet.podspec */,
 				F0C74DAE24D4ECF600847EB0 /* BNet */,
 				F0C74DB924D4ECF600847EB0 /* BNetTests */,
 				F0C74DE624D4F1D400847EB0 /* BNetExamples */,
@@ -405,6 +408,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F05558D824D4F8D900074425 /* BNet.podspec in Resources */,
 				F0C74DE024D4F00A00847EB0 /* LICENSE in Resources */,
 				F0C74DDF24D4F00900847EB0 /* README.md in Resources */,
 			);
