@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 /**
  Routing protocol is managing and controlling the communication with remote.
  Based on the generic **Endpoint** protocol.
@@ -35,32 +34,27 @@ import Foundation
  ```
  */
 public protocol BNetRouterProtocol {
-    
     associatedtype EndPoint: BNetRequestProtocol
-    
+    // Functions
     func request<P:Codable>(_ route: EndPoint, decoded: P.Type, onSuccess: @escaping (P) -> Void, onFailure: @escaping (BNetError) -> Void)
     func wait()
     func cancel()
-    
+    // Variable
     var timeout: TimeInterval { get set }
 }
 
-
-// MARK:- Router Class
+// MARK: - Router Class
 /// Router class
-public class BNRouter<T: BNetRequestProtocol> : BNetRouterProtocol {
-    
-    
+open class BNRouter<T: BNetRequestProtocol> : BNetRouterProtocol {
+
     // MARK: - Properties
     //
     // Note: If you want to change decoding format, access and set the decoder property.
     var sessionTask: URLSessionTask?
     public var decoder = JSONDecoder()
-    
     public var timeout = TimeInterval(exactly: 25.0)!
-    
-    
-    //MARK:- Protocol Methods
+
+    // MARK: - Protocol Methods
     public func request<P: Codable>(_ route: T, decoded: P.Type, onSuccess: @escaping (P) -> Void, onFailure: @escaping (BNetError) -> Void) {
         let session = URLSession.shared
         do {
@@ -69,7 +63,6 @@ public class BNRouter<T: BNetRequestProtocol> : BNetRouterProtocol {
                 if error != nil {
                     DispatchQueue.main.async { onFailure(BNetError.connectionFailed) }
                 }
-                
                 if let httpResponse = response as? HTTPURLResponse {
                     //TODO: Transmit the server message to the user...!
                     let result =  self.handleNetworkResponse(httpResponse)
@@ -77,7 +70,6 @@ public class BNRouter<T: BNetRequestProtocol> : BNetRouterProtocol {
                         DispatchQueue.main.async { onFailure(BNetError.noResponse) }
                         return
                     }
-                    
                     switch result {
                     case .success(_):
                         do {
@@ -101,37 +93,29 @@ public class BNRouter<T: BNetRequestProtocol> : BNetRouterProtocol {
         } catch {
             DispatchQueue.main.async { onFailure(BNetError.codingError) }
         }
-        
         sessionTask?.resume()
     }
-    
+
     /// Wait session
     ///
     /// - TODO: Takes argument as Time(ms)
     public func wait() {
-        
         guard let task = sessionTask else {
             return
         }
-        
         task.suspend()
     }
-    
-    
+
     /// Cancel session
     public func cancel() {
         guard let task = sessionTask else {
             return
         }
-        
         task.cancel()
     }
-    
 }
 
-
 extension BNRouter {
-    
     /// Request object which also contains the query and body parameters
     ///
     /// - Parameter route: Routing
@@ -141,17 +125,14 @@ extension BNRouter {
         guard let base = route.baseURL else {
             throw BNetError.missingURLError
         }
-        
         let requestURL = base.appendingPathComponent(route.path)
         var request = URLRequest(url: requestURL, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: timeout)
-        
         request.httpMethod = route.method.rawValue
         if let header = route.header {
             for (k,v) in header {
                 request.addValue(v, forHTTPHeaderField: k)
             }
         }
-        
         do {
             switch route.task {
             case .request:
@@ -169,13 +150,12 @@ extension BNRouter {
                 }
                 break
             }
-            
             return request
         } catch {
             throw BNetError.codingError
         }
     }
-    
+
     /// Generalize the parameters encoding function with given parameters
     ///
     /// - Parameters:
@@ -186,7 +166,6 @@ extension BNRouter {
     ///
     /// - Throws: Network Encoding Error
     private func configureParameters(urlRequest: inout URLRequest, parametersMap: ParametersMap) throws {
-        
         do {
             let json = parametersMap[ParameterType.json.rawValue]
             let form = parametersMap[ParameterType.x_www_form.rawValue]
@@ -204,10 +183,8 @@ extension BNRouter {
         } catch {
             throw error
         }
-        
     }
-    
-    
+
     /// Classify the response with respect to the its status code
     ///
     /// - Parameter response: Response returned from cloud
@@ -245,7 +222,5 @@ extension BNRouter {
         default:
             return .failure("Undefined response which the status code is \(response.statusCode)")
         }
-        
     }
-    
 }

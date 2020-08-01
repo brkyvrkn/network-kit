@@ -8,21 +8,20 @@
 
 import Foundation
 
-
 extension Dictionary {
-    
+
     var asStringParams: String {
         get {
             return customDescription()
         }
     }
-    
+
     var asStringData: Data? {
         get {
             return self.asStringParams.data(using: .utf8)
         }
     }
-    
+
     private func customDescription() -> String {
         var str = self.reduce("") {
             return $0 + "\($1.key)=\($1.value)&"

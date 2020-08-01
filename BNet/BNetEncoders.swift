@@ -8,19 +8,15 @@
 
 import Foundation
 
-
 /// Encode the Parameters of given URLRequest object
 ///
 /// - Note: Protocol is just responsible for preparing the parameters within
 /// - Remark: Passed by reference for URLRequest object!
 protocol BNetParameterEncoder {
-    
     static func encode(urlRequest: inout URLRequest, parameters: Parameters) throws
 }
 
-
 struct FormBodyParameterEncoding: BNetParameterEncoder {
-    
     /// Arranging the body parameters given URLRequest object for *x-www-form*
     ///
     /// - Parameters:
@@ -35,13 +31,9 @@ struct FormBodyParameterEncoding: BNetParameterEncoder {
             urlRequest.httpBody = parameters.asStringData
         }
     }
-    
 }
 
-
 struct QueryParameterEncoding: BNetParameterEncoder {
-    
-    
     /// Encode the query parameters for the given URLRequest.
     ///
     /// - Parameters:
@@ -54,21 +46,15 @@ struct QueryParameterEncoding: BNetParameterEncoder {
         guard let url = urlRequest.url else {
             throw BNetError.missingURLError
         }
-        
         if var components = URLComponents(url: url, resolvingAgainstBaseURL: false) {
             components.queryItems = [URLQueryItem]()
             components.setQueryItems(from: parameters)
             urlRequest.url = components.url
         }
-        
     }
-    
 }
 
-
 struct JSONParameterEncoding: BNetParameterEncoder {
-    
-    
     /// Encode the parameters for the json request type
     ///
     /// - Parameters:
@@ -83,5 +69,4 @@ struct JSONParameterEncoding: BNetParameterEncoder {
             throw BNetError.codingError
         }
     }
-    
 }

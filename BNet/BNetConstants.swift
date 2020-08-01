@@ -8,14 +8,13 @@
 
 import Foundation
 
-//MARK:- Typealiases
+// MARK: - Typealiases
 /*
  * Dictionaries
  */
 public typealias Parameters = [String: Any]
 public typealias HTTPHeader = [String: String]
 public typealias ParametersMap = Dictionary<String, Parameters>
-
 
 /*
  * Clousures
@@ -24,23 +23,20 @@ public typealias SuccessClousure = (Data) -> Void
 public typealias FailureClousure = (Int, String) -> Void
 public typealias RouterClousure = (Data?, URLResponse?, Error?) -> ()
 
-
-//MARK:- HTTP Task
+// MARK: - HTTP Task
 /// Task for the request
 ///
 /// - request: Plain request without any parameter
 /// - requestParams: Request with Json, Form or Query parameters
 /// - requestParamsWithHeader: Request with both parameters and additional header
 public enum HTTPTask {
-    
     case request
     case requestParams(parameters: ParametersMap)
     case requestParamsWithHeader(parameters: ParametersMap, extraHeader: HTTPHeader?)
 }
 
-//MARK:- HTTP Methods
+// MARK: - HTTP Methods
 public enum HTTPMethods: String {
-    
     case get    = "GET"
     case put    = "PUT"
     case post   = "POST"
@@ -49,25 +45,23 @@ public enum HTTPMethods: String {
     case copy   = "COPY"
 }
 
-//MARK:- Environment
-/// Using to determine the base url
+// MARK: - Environment
+/// To determine the base url
 public enum BNetEnvironment {
-    
     case local
     case development
     case test
     case production
 }
 
-//MARK:-
+// MARK: -
 public enum ParameterType: String {
-    
     case json       = "jsonParam"
     case query      = "queryParam"
     case x_www_form = "formParam"
 }
 
-//MARK:- Response
+// MARK: - Response
 /// All possible response types with its codes which annotated by enum
 ///
 /// - 1xx: This class of status code indicates a provisional response, consisting only of the Status-Line and optional headers, and is terminated by an empty line. There are no required headers for this class of status code. Since HTTP/1.0 did not define any 1xx status codes, servers MUST NOT send a 1xx response to an HTTP/1.0 client except under experimental conditions.
@@ -83,45 +77,37 @@ public enum ParameterType: String {
 ///
 /// - See Also: [Messages](https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html)
 public enum BNetResponse {
-    
     // 1xx Information responses
     case Continue
     case switchingProtocol
     case processing
     case earlyHints
-    
     // 2xx Successful responses
     case ok
     case created
     case accepted
     case noContent
-    
     // 3xx Redirects
     case notModified
-    
     // 4xx Client errors
     case badRequest
     case unauthorized
     case forbidden
     case notFound
     case conflict
-    
     // 5xx Server errors
     case internalServerError
 }
 
-//MARK:- Result
+// MARK: - Result
 public enum BNetResult<String> {
-    
     case success(String)
     case failure(String)
-    
     case redirection(String)
 }
 
-//MARK:- Response Messages
+// MARK: - Response Messages
 extension BNetResponse {
-    
     /// User-friendly message based on the status code of response
     var message: String {
         switch self {

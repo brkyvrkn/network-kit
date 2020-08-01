@@ -7,10 +7,8 @@
 
 import Foundation
 
-
-//MARK:- Header Values
+// MARK: - Header Values
 public enum HTTPHeaderValues {
-    
     
     /// Values for Content Type key
     ///
@@ -33,7 +31,6 @@ public enum HTTPHeaderValues {
     /// - See also:
     ///   [Definitions](https://www.w3.org/Protocols/rfc1341/4_Content-Type.html)
     public enum ContentType {
-        
         case application(subtype: String)
         case text(subtype: String)
         case video(subtype: String)

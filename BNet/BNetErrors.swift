@@ -8,25 +8,20 @@
 
 import Foundation
 
-
-//MARK:- Error Types
+// MARK: - Error Types
 public enum BNetError: Error {
-    
     case environmentError
     case codingError
     case missingURLError
     case missingParametersError
     case connectionFailed
     case noResponse
-    
     case responseError(responseType: BNetResponse)
     case customError(id: Int, message: String)
 }
 
-
-//MARK:- Error messages
+// MARK: - Error messages
 extension BNetError {
-    
     /// User-friendly description of the errors
     public var description: String {
         switch self {

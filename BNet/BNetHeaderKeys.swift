@@ -7,16 +7,14 @@
 
 import Foundation
 
-
-//MARK:- HTTP Header Keys
+// MARK: - HTTP Header Keys
 /// HTTP Header Fields
 ///
 /// - See also: https://en.wikipedia.org/wiki/List_of_HTTP_header_fields
 /// - See also: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers
 public enum HTTPHeaderKeys {
-    
-    
-    //MARK:- Authentication
+
+    // MARK: - Authentication
     /// Authentication category
     ///
     /// - www_authenticate: Defines the authentication method that should be used to gain access to a resource.
@@ -24,15 +22,13 @@ public enum HTTPHeaderKeys {
     /// - proxy_authenticate: Defines the authentication method that should be used to gain access to a resource behind a Proxy server.
     /// - proxy_authorization: Contains the credentials to authenticate a user agent with a proxy server.
     public enum Authentication: String {
-      
       case www_authenticate     = "WWW-Authenticate"
       case authorization        = "Authorization"
       case proxy_authenticate   = "Proxy_Authenticate"
       case proxy_authorization  = "Proxy_Authorization"
     }
-      
-    
-    //MARK:- Caching
+
+    // MARK: - Caching
     /// Caching category
     ///
     /// - age: The time in seconds the object has been in a proxy cache.
@@ -43,16 +39,14 @@ public enum HTTPHeaderKeys {
     ///   Used for backwards compatibility with HTTP/1.0 caches where the Cache-Control header is not yet present.
     /// - 'warning: A general warning field containing information about possible problems.
     public enum Caching: String {
-      
         case age            = "Age"
         case cache_control  = "Cache-Control"
         case expires        = "Expires"
         case pragma         = "Pragma"
         case warning        = "Warning"
     }
-    
-    
-    //MARK:- Client Hints
+
+    // MARK: - Client Hints
     /// Client Hints category
     ///
     /// - accept_ch: Response header field or the equivalent HTML meta element with http-equiv attribute indicate server support for particular hints indicated in its value.
@@ -67,7 +61,6 @@ public enum HTTPHeaderKeys {
     ///
     /// - See also: https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/client-hints
     public enum ClientHints: String {
-      
         case accept_ch      = "Accept-CH"
         case content_dpr    = "Content-DPR"
         case dpr            = "DPR"
@@ -77,8 +70,7 @@ public enum HTTPHeaderKeys {
         case width          = "Width"
     }
     
-    
-    //MARK:- Conditionals
+    // MARK: - Conditionals
     /// Conditionals category
     ///
     /// - last_modified: It is a validator, the last modification date of the resource, used to compare several versions of the same resource.
@@ -98,7 +90,6 @@ public enum HTTPHeaderKeys {
     ///
     ///     This is used to ensure the coherence of a new fragment of a specific range with previous ones, or to implement an optimistic concurrency control system when modifying existing documents.
     public enum Conditionals: String {
-      
         case last_modified          = "Last-Modified"
         case eTag                   = "ETag"
         case if_match               = "If-Match"
@@ -107,20 +98,17 @@ public enum HTTPHeaderKeys {
         case if_unmodified_since    = "If-Unmodified-Since"
     }
     
-    
-    //MARK:- Connection Management
+    // MARK: - Connection Management
     /// Connection Management category
     ///
     /// - connection: Controls whether the network connection stays open after the current transaction finishes.
     /// - keep_alive: Controls how long a persistent connection should stay open.
     public enum ConnectionManagement: String {
-      
         case connection     = "Connection"
         case keep_alive     = "Keep-Alive"
     }
-    
-    
-    //MARK:- Content Negotiation
+
+    // MARK: - Content Negotiation
     /// Content Negotiation category
     ///
     /// - accept: Informs the server about the types of data that can be sent back. It is MIME-type.
@@ -130,39 +118,33 @@ public enum HTTPHeaderKeys {
     ///
     ///     This is a hint and is not necessarily under the full control of the user: the server should always pay attention not to override an explicit user choice (like selecting a language in a drop down list).
     public enum ContentNegotiation: String {
-        
         case accept             = "Accept"
         case accept_charset     = "Accept-Charset"
         case accept_encoding    = "Accept-Encoding"
         case accept_language    = "Accept-Language"
     }
-    
-    
-    //MARK:- Controls
+
+    // MARK: - Controls
     /// Controls category
     ///
     /// - expect: Indicates expectations that need to be fulfilled by the server in order to properly handle the request.
     /// - max_forwards: Limit the number of times the message can be forwarded through proxies or gateways.
     public enum Controls: String {
-        
         case expect         = "Expect"
         case max_forwards   = "Max-Forwards"
     }
-    
-    
-    //MARK:- Cookies
+
+    // MARK: - Cookies
     /// Cookies category
     ///
     /// - cookie: Contains stored HTTP cookies previously sent by the server with the Set-Cookie header.
     /// - set_cookie: Send cookies from the server to the user agent.
     public enum Cookies: String {
-        
         case cookie         = "Cookie"
         case set_cookie     = "Set-Cookie"
     }
-    
-    
-    //MARK:- CORS
+
+    // MARK: - CORS
     /// CORS category
     ///
     /// - access_control_allow_origin: Indicates whether the response can be shared.
@@ -180,7 +162,6 @@ public enum HTTPHeaderKeys {
     ///
     /// - See also: https://w3c.github.io/resource-timing/
     public enum Cors: String {
-        
         case access_control_allow_origin        = "Access-Control-Allow-Origin"
         case access_control_allow_credentials   = "Access-Control-Allow-Credentials"
         case access_control_allow_headers       = "Access-Control-Allow-Headers"
@@ -192,33 +173,28 @@ public enum HTTPHeaderKeys {
         case origin                             = "Origin"
         case timing_allow_origin                = "Timing-Allow-Origin"
     }
-    
-    
-    //MARK:- Do Not Track
+
+    // MARK: - Do Not Track
     /// Do not track category
     ///
     /// - dnt: Used for expressing the user's tracking preference.
     /// - tk: Indicates the tracking status that applied to the corresponding request.
     public enum DoNotTrack: String {
-        
         case dnt    = "DNT"
         case tk     = "Tk"
     }
-    
-    
-    //MARK:- Downloads
+
+    // MARK: - Downloads
     /// Downloads category
     ///
     /// - content_disposition: It is a response header if the resource transmitted should be displayed inline (default behavior when the header is not present),
     ///
     ///     or it should be handled like a download and the browser should present a 'Save As' window.
     public enum Downloads: String {
-        
         case content_disposition    = "Content-Disposition"
     }
-    
-    
-    //MARK:- Message Body
+
+    // MARK: - Message Body
     /// Body Information
     ///
     /// - content_length: Indicates the size of the entity-body, in decimal number of octets, sent to the recipient.
@@ -227,16 +203,14 @@ public enum HTTPHeaderKeys {
     /// - content_language: Describes the language(s) intended for the audience, so that it allows a user to differentiate according to the users' own preferred language.
     /// - content_location: Indicates an alternate location for the returned data.
     public enum MessageBodyInformation: String {
-        
         case content_length     = "Content-Length"
         case content_type       = "Content-Type"
         case content_encoding   = "Content-Encoding"
         case content_language   = "Content-Language"
         case content_location   = "Content-Location"
     }
-    
-    
-    //MARK:- Proxies
+
+    // MARK: - Proxies
     /// Proxies category
     ///
     /// - forwarded: Contains information from the client-facing side of proxy servers that is altered or lost when a proxy is involved in the path of the request.
@@ -245,26 +219,22 @@ public enum HTTPHeaderKeys {
     /// - x_forwarded_proto: identifies the protocol (HTTP or HTTPS) that a client used to connect to your proxy or load balancer.
     /// - via: Added by proxies, both forward and reverse proxies, and can appear in the request headers and the response headers.
     public enum Proxies: String {
-        
         case forwarded          = "Forwarded"
         case x_forwarded_for    = "X-Forwarded-For"
         case x_forwarded_host   = "X-Forwarded-Host"
         case x_forwarded_proto  = "X-Forwarded-Proto"
         case via                = "Via"
     }
-    
-    
+
     //MARK:- Redirects
     /// Redirects category
     ///
     /// - location: Indicates the URL to redirect a page to.
     public enum Redirects: String {
-        
         case location   = "Location"
     }
-    
-    
-    //MARK:- Request Context
+
+    // MARK: - Request Context
     /// Request Context category
     ///
     /// - from: Contains an Internet email address for a human user who controls the requesting user agent.
@@ -275,28 +245,24 @@ public enum HTTPHeaderKeys {
     ///
     /// - See also: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/User-Agent/Firefox
     public enum RequestContext: String {
-        
         case from           = "From"
         case host           = "Host"
         case referer        = "Referer"
         case referer_policy = "Referrer-Policy"
         case user_agent     = "User-Agent"
     }
-    
-    
-    //MARK:- Response Context
+
+    // MARK: - Response Context
     /// Response Context category
     ///
     /// - allow: Lists the set of HTTP request methods support by a resource.
     /// - server: Contains information about the software used by the origin server to handle the request.
     public enum ResponseContext: String {
-        
         case allow      = "Allow"
         case server     = "Server"
     }
-    
-    
-    //MARK:- Range Requests
+
+    // MARK: - Range Requests
     /// Range Requests category
     ///
     /// - accept_ranges: Indicates if the server supports range requests and if so, in which unit the range can be expressed.
@@ -306,15 +272,13 @@ public enum HTTPHeaderKeys {
     ///     Used to prevent downloading two ranges from incompatible version of the resource.
     /// - content_range: Indicates where in a full body message a partial message belongs.
     public enum RangeRequests: String {
-        
         case accept_ranges  = "Accept-Ranges"
         case range          = "Range"
         case if_range       = "If-Range"
         case content_range  = "Content-Range"
     }
-    
-    
-    //MARK:- Security
+
+    // MARK: - Security
     /// Security category
     ///
     /// - content_security_policy: Controls resources the user agent is allowed to load for a given page.
@@ -331,7 +295,6 @@ public enum HTTPHeaderKeys {
     ///
     /// - See also: https://developer.mozilla.org/tr/docs/Web/HTTP/Headers/Content-Security-Policy
     public enum Security: String {
-        
         case content_security_policy                = "Content-Security-Policy"
         case content_security_policy_report_only    = "Content-Security-Policy-Report-Only"
         case public_key_pins                        = "Public-Key-Pins"
@@ -342,37 +305,32 @@ public enum HTTPHeaderKeys {
         case x_frame_options                        = "X-Frame-Options"
         case x_xss_protection                       = "X-XSS-Protection"
     }
-    
-    
-    //MARK:- Server Sent Events
+
+    // MARK: - Server Sent Events
     /// Server Sent Events category
     ///
     /// - ping_from:
     /// - ping_to:
     /// - last_event_id:
     public enum ServerSentEvents: String {
-        
         case ping_from      = "Ping-From"
         case ping_to        = "Ping-To"
         case last_event_id  = "Last-Event-ID"
     }
-    
-    
-    //MARK:- Tansfer Coding
+
+    // MARK: - Tansfer Coding
     /// Transfer Coding category
     ///
     /// - transfer_encoding: Specifies the the form of encoding used to safely transfer the entity to the user.
     /// - te: Specifies the transfer encodings the user agent is willing to accept.
     /// - trailer: Allows the sender to include additional fields at the end of chunked message.
     public enum TransferCoding: String {
-        
         case transfer_encoding  = "Transfer-Encoding"
         case te                 = "TE"
         case trailer            = "Trailer"
     }
-    
-    
-    //MARK:- Web Socket
+
+    // MARK: - Web Socket
     /// Web Sockets category
     ///
     /// - sec_webSocket_key:
@@ -381,16 +339,14 @@ public enum HTTPHeaderKeys {
     /// - sec_webSocket_protocol:
     /// - sec_webSocket_version:
     public enum WebSockets: String {
-        
         case sec_webSocket_key          = "Sec-WebSocket-Key"
         case sec_webSocket_extensions   = "Sec-WebSocket-Extensions"
         case sec_webSocket_accept       = "Sec-WebSocket-Accept"
         case sec_webSocket_protocol     = "Sec-WebSocket-Protocol"
         case sec_webSocket_version      = "Sec-WebSocket-Version"
     }
-    
-    
-    //MARK:- Other
+
+    // MARK: - Other
     /// Other category
     ///
     /// - 'date: Contains the date and time at which the message was originated.
@@ -412,7 +368,6 @@ public enum HTTPHeaderKeys {
     /// - See also: https://developer.mozilla.org/en-US/docs/Tools/Debugger/How_to/Use_a_source_map
     /// - See also: https://tools.ietf.org/html/rfc7230#section-6.1
     public enum Other: String {
-        
         case date                   = "Date"
         case large_allocation       = "Large-Allocation"
         case link                   = "Link"
@@ -425,5 +380,4 @@ public enum HTTPHeaderKeys {
         case x_requested_width      = "X-Requested-With"
         case x_ua_compatiable       = "X-UA-Compatible"
     }
-    
 }

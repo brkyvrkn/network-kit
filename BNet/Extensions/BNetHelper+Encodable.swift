@@ -9,16 +9,13 @@
 import Foundation
 
 extension Encodable {
-    
+
     var dictionary: [String: Any]? {
         guard let data = try? JSONEncoder().encode(self) else { return nil }
-        
         let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments)
         let dict = json.flatMap {
             $0 as? [String: Any]
         }
-        
         return dict
     }
-    
 }
