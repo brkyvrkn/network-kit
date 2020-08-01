@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import BNetworking
+import BNet
 
 enum CountriesEndpoint {
     case listAll

@@ -36,6 +36,17 @@
 		F0C74E1324D4F2D900847EB0 /* ServicePaths.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C74E1124D4F2D900847EB0 /* ServicePaths.swift */; };
 		F0C74E1624D4F2E200847EB0 /* CountryResponses.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C74E1424D4F2E200847EB0 /* CountryResponses.swift */; };
 		F0C74E1724D4F2E200847EB0 /* CurrencyResponses.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C74E1524D4F2E200847EB0 /* CurrencyResponses.swift */; };
+		F0C74E1824D4F63B00847EB0 /* BNetConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C74DD324D4EE9600847EB0 /* BNetConstants.swift */; };
+		F0C74E1924D4F63B00847EB0 /* BNetEncoders.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C74DD224D4EE9600847EB0 /* BNetEncoders.swift */; };
+		F0C74E1A24D4F63B00847EB0 /* BNetErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C74DD424D4EE9600847EB0 /* BNetErrors.swift */; };
+		F0C74E1B24D4F63B00847EB0 /* BNetHeaderKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C74DD124D4EE9600847EB0 /* BNetHeaderKeys.swift */; };
+		F0C74E1C24D4F63B00847EB0 /* BNetHeaderValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C74DCF24D4EE9600847EB0 /* BNetHeaderValues.swift */; };
+		F0C74E1D24D4F63B00847EB0 /* BNetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C74DD524D4EE9600847EB0 /* BNetManager.swift */; };
+		F0C74E1E24D4F63B00847EB0 /* BNetRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C74DD024D4EE9600847EB0 /* BNetRouter.swift */; };
+		F0C74E1F24D4F63E00847EB0 /* BNetHeaderValues+ContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C74DC724D4EE6D00847EB0 /* BNetHeaderValues+ContentType.swift */; };
+		F0C74E2024D4F63E00847EB0 /* BNetHelper+Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C74DC824D4EE6D00847EB0 /* BNetHelper+Dictionary.swift */; };
+		F0C74E2124D4F63E00847EB0 /* BNetHelper+Encodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C74DC924D4EE6D00847EB0 /* BNetHelper+Encodable.swift */; };
+		F0C74E2224D4F63E00847EB0 /* BNetHelper+URLComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C74DCA24D4EE6D00847EB0 /* BNetHelper+URLComponents.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -457,14 +468,25 @@
 			buildActionMask = 2147483647;
 			files = (
 				F0C74E1724D4F2E200847EB0 /* CurrencyResponses.swift in Sources */,
+				F0C74E1C24D4F63B00847EB0 /* BNetHeaderValues.swift in Sources */,
+				F0C74E1B24D4F63B00847EB0 /* BNetHeaderKeys.swift in Sources */,
+				F0C74E1A24D4F63B00847EB0 /* BNetErrors.swift in Sources */,
 				F0C74DEC24D4F1D400847EB0 /* ViewController.swift in Sources */,
+				F0C74E1E24D4F63B00847EB0 /* BNetRouter.swift in Sources */,
 				F0C74DE824D4F1D400847EB0 /* AppDelegate.swift in Sources */,
+				F0C74E2124D4F63E00847EB0 /* BNetHelper+Encodable.swift in Sources */,
 				F0C74E0E24D4F2CA00847EB0 /* CurrencyModel.swift in Sources */,
+				F0C74E1F24D4F63E00847EB0 /* BNetHeaderValues+ContentType.swift in Sources */,
 				F0C74DEA24D4F1D400847EB0 /* SceneDelegate.swift in Sources */,
+				F0C74E1924D4F63B00847EB0 /* BNetEncoders.swift in Sources */,
 				F0C74E0F24D4F2CA00847EB0 /* CountryModel.swift in Sources */,
 				F0C74E1324D4F2D900847EB0 /* ServicePaths.swift in Sources */,
+				F0C74E2224D4F63E00847EB0 /* BNetHelper+URLComponents.swift in Sources */,
 				F0C74E1224D4F2D900847EB0 /* CountriesEndpoint.swift in Sources */,
+				F0C74E1824D4F63B00847EB0 /* BNetConstants.swift in Sources */,
 				F0C74E1624D4F2E200847EB0 /* CountryResponses.swift in Sources */,
+				F0C74E2024D4F63E00847EB0 /* BNetHelper+Dictionary.swift in Sources */,
+				F0C74E1D24D4F63B00847EB0 /* BNetManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
