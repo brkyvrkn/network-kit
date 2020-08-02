@@ -26,7 +26,7 @@ public enum HTTPHeaderValues {
     /// - multipart: Data consisting of multiple parts of independent data types. Four initial subtypes are defined, including the primary "mixed" subtype, "alternative" for representing the same data in multiple formats, "parallel" for parts intended to be viewed simultaneously, and "digest" for multipart entities in which each part is of type "message".
     ///
     /// - Note: A subtype specification is MANDATORY.   There are no default subtypes.
-    /// - Note: Active email entails several securityconsiderations, which are discussed later in this memo, particularly in the context of application/PostScript.
+    /// - Note: Active email entails several security considerations, particularly in the context of application/PostScript.
     ///
     /// - See also:
     ///   [Definitions](https://www.w3.org/Protocols/rfc1341/4_Content-Type.html)

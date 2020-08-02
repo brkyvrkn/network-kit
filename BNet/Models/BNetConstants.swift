@@ -78,7 +78,7 @@ public enum ParameterType: String {
 /// - See Also: [Messages](https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html)
 public enum BNetResponse {
     // 1xx Information responses
-    case Continue
+    case continue_
     case switchingProtocol
     case processing
     case earlyHints
@@ -111,7 +111,7 @@ extension BNetResponse {
     /// User-friendly message based on the status code of response
     var message: String {
         switch self {
-        case .Continue:
+        case .continue_:
             return "Should continue the request, or ignore the response if the request is already finished."
         case .switchingProtocol:
             return "The server understands and is willing to comply with the client's request."

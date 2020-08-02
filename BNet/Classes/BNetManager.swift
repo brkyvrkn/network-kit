@@ -26,12 +26,12 @@ open class BNetManager {
 
     /// Setter for private variable
     /// - Parameter token: Authorization token
-    public func setToken(_ token: String) {
+    open func setToken(_ token: String) {
         self.token = token
     }
 
     /// Getter for private variable
-    public func getToken() -> String {
+    open func getToken() -> String {
         if let token = self.token {
             return token
         }
@@ -53,7 +53,7 @@ open class BNetManager {
     ///     // Failure scope
     ///  })
     ///  ~~~~
-    public func accessRouter<T: BNetRequestProtocol>(endpointType: T.Type) -> BNRouter<T> {
+    open func accessRouter<T: BNetRequestProtocol>(endpointType: T.Type) -> BNRouter<T> {
         let router = BNRouter<T>()
         return router
     }

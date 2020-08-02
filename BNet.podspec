@@ -90,7 +90,7 @@ Pod::Spec.new do |spec|
   #  Not including the public_header_files will make all headers public.
   #
 
-  spec.source_files  = "Sources", "BNet/**/*.{h,m}"
+  spec.source_files  = "BNet/Models/**/*.{h,m,swift}", "BNet/Utils/**/*.{h,m,swift}", "BNet/Classes/**/*.{h,m,swift}", "BNet/Extensions/**/*.{h,m,swift}"
   spec.exclude_files = "BNet/Exclude"
 
   # spec.public_header_files = "Classes/**/*.h"

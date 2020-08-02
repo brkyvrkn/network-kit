@@ -192,7 +192,7 @@ extension BNRouter {
     private func handleNetworkResponse(_ response: HTTPURLResponse) -> BNetResult<String> {
         switch response.statusCode {
         case 100:
-            return .success(BNetResponse.Continue.message)
+            return .success(BNetResponse.continue_.message)
         case 101:
             return .success(BNetResponse.switchingProtocol.message)
         case 102:

@@ -168,13 +168,9 @@
 		F0C74DAE24D4ECF600847EB0 /* BNet */ = {
 			isa = PBXGroup;
 			children = (
-				F0C74DD324D4EE9600847EB0 /* BNetConstants.swift */,
-				F0C74DD224D4EE9600847EB0 /* BNetEncoders.swift */,
-				F0C74DD424D4EE9600847EB0 /* BNetErrors.swift */,
-				F0C74DD124D4EE9600847EB0 /* BNetHeaderKeys.swift */,
-				F0C74DCF24D4EE9600847EB0 /* BNetHeaderValues.swift */,
-				F0C74DD524D4EE9600847EB0 /* BNetManager.swift */,
-				F0C74DD024D4EE9600847EB0 /* BNetRouter.swift */,
+				F0C830DF24D63537003F2811 /* Models */,
+				F0C830DE24D6350F003F2811 /* Utils */,
+				F0C830DD24D634DE003F2811 /* Classes */,
 				F0C74DC624D4EE5000847EB0 /* Extensions */,
 				F0C74DAF24D4ECF600847EB0 /* BNet.h */,
 				F0C74DB024D4ECF600847EB0 /* Info.plist */,
@@ -261,12 +257,40 @@
 		F0C74E0B24D4F2BC00847EB0 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				F0C74E1424D4F2E200847EB0 /* CountryResponses.swift */,
-				F0C74E1524D4F2E200847EB0 /* CurrencyResponses.swift */,
 				F0C74E1024D4F2D900847EB0 /* CountriesEndpoint.swift */,
-				F0C74E1124D4F2D900847EB0 /* ServicePaths.swift */,
 				F0C74E0D24D4F2CA00847EB0 /* CountryModel.swift */,
+				F0C74E1424D4F2E200847EB0 /* CountryResponses.swift */,
 				F0C74E0C24D4F2CA00847EB0 /* CurrencyModel.swift */,
+				F0C74E1524D4F2E200847EB0 /* CurrencyResponses.swift */,
+				F0C74E1124D4F2D900847EB0 /* ServicePaths.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		F0C830DD24D634DE003F2811 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				F0C74DD024D4EE9600847EB0 /* BNetRouter.swift */,
+				F0C74DD524D4EE9600847EB0 /* BNetManager.swift */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		F0C830DE24D6350F003F2811 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				F0C74DD224D4EE9600847EB0 /* BNetEncoders.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		F0C830DF24D63537003F2811 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				F0C74DD324D4EE9600847EB0 /* BNetConstants.swift */,
+				F0C74DD424D4EE9600847EB0 /* BNetErrors.swift */,
+				F0C74DD124D4EE9600847EB0 /* BNetHeaderKeys.swift */,
+				F0C74DCF24D4EE9600847EB0 /* BNetHeaderValues.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
