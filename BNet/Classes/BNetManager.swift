@@ -17,12 +17,28 @@ public protocol BNetRequestProtocol {
     var method: HTTPMethods { get }
 }
 
+internal struct BNetConfig: Codable {
+    var env: String
+    var baseURL: String
+
+    init(baseURL: String, env: String) {
+        self.env = env
+        self.baseURL = baseURL
+    }
+}
+
 /// Manage all network access, routing and coding of data
 open class BNetManager {
 
     public static let shared = BNetManager()
     private var token: String?
-    public static var environment = BNetEnvironment.development       // default is dev
+    public static var environment = BNetEnvironment.development(text: "dev")
+    internal var _config: BNetConfig
+
+    init() {
+        self.token = nil
+        self._config = BNetConfig(baseURL: "", env: BNetManager.environment.value)
+    }
 
     /// Setter for private variable
     /// - Parameter token: Authorization token

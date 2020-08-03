@@ -48,10 +48,10 @@ public enum HTTPMethods: String {
 // MARK: - Environment
 /// To determine the base url
 public enum BNetEnvironment {
-    case local
-    case development
-    case test
-    case production
+    case local(text: String = "local")
+    case development(text: String = "dev")
+    case test(text: String = "test")
+    case production(text: String = "prod")
 }
 
 // MARK: -
