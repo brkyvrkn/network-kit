@@ -13,17 +13,17 @@ extension HTTPHeaderValues.ContentType {
     public var value: String {
         switch self {
         case .application(let subtype):
-            return "application/\(subtype);"
+            return "application/\(subtype)"
         case .audio(let subtype):
-            return "audio/\(subtype);"
+            return "audio/\(subtype)"
         case .image(let subtype):
-            return "image/\(subtype);"
+            return "image/\(subtype)"
         case .multipart(let subtype):
-            return "multipart/\(subtype);"
+            return "multipart/\(subtype)"
         case .text(let subtype):
-            return "text/\(subtype);"
+            return "text/\(subtype)"
         case .video(let subtype):
-            return "video/\(subtype);"
+            return "video/\(subtype)"
         }
     }
 
