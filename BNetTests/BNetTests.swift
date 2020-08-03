@@ -315,6 +315,81 @@ class BNetTests: XCTestCase {
         XCTAssertEqual(prod.value, "prod")
     }
 
+    // MARK: - Manager
+    func testManagerToken() {
+        let manager = BNetManager.shared
+        XCTAssertEqual(manager.getToken(), "")
+        manager.setToken("token")
+        XCTAssertEqual(manager.getToken(), "token")
+    }
+
+    // MARK: - Encoder
+    func testFormBodyEncoder() throws {
+        let googleURL = URL(string: "https://www.google.com")
+        XCTAssertNotNil(googleURL)
+        var req = URLRequest(url: googleURL!)
+        let params: Parameters = ["key1": "value1", "key2": "value2"]
+        try? FormBodyParameterEncoding.encode(urlRequest: &req, parameters: params)
+        XCTAssertNotNil(req.httpBody)
+        let bodyStr = String(data: req.httpBody!, encoding: .utf8)
+        XCTAssertNotNil(bodyStr)
+        XCTAssertEqual(bodyStr!, params.asStringParams)
+    }
+
+    func testQueryParameterEncoder() throws {
+        let googleURL = URL(string: "https://www.google.com")
+        XCTAssertNotNil(googleURL)
+        var req = URLRequest(url: googleURL!)
+        let params: Parameters = ["key": "value"]
+        try? QueryParameterEncoding.encode(urlRequest: &req, parameters: params)
+        XCTAssertNotNil(req.url)
+        XCTAssertEqual(req.url!.absoluteString, "https://www.google.com?key=value")
+    }
+
+    func testQueryParameterEncoderThrows() {
+        let googleURL = URL(string: "https://www.google.com")
+        XCTAssertNotNil(googleURL)
+        var req = URLRequest(url: googleURL!)
+        let params: Parameters = ["key": 0]
+        try? QueryParameterEncoding.encode(urlRequest: &req, parameters: params)
+        XCTAssertNotNil(req.url)
+        XCTAssertEqual(req.url!.absoluteString, "https://www.google.com")
+    }
+
+    func testQueryParameterEncoderThrowsURL() {
+        let googleURL = URL(string: "https://www.google.com")
+        XCTAssertNotNil(googleURL)
+        var req = URLRequest(url: googleURL!)
+        req.url = nil
+        let params: Parameters = ["key": "value"]
+        try? QueryParameterEncoding.encode(urlRequest: &req, parameters: params)
+        XCTAssertNil(req.url)
+    }
+
+    func testJSONParameterEncoder() throws {
+        let googleURL = URL(string: "https://www.google.com")
+        XCTAssertNotNil(googleURL)
+        var req = URLRequest(url: googleURL!)
+        let params: Parameters = ["key": "value"]
+        try? JSONParameterEncoding.encode(urlRequest: &req, parameters: params)
+        XCTAssertNotNil(req.httpBody)
+        let bodyStr = String(data: req.httpBody!, encoding: .utf8)
+        XCTAssertNotNil(bodyStr)
+        XCTAssertEqual(bodyStr!, "{\n  \"key\" : \"value\"\n}")
+    }
+
+    func testJSONParameterEncoderWithoutQuery() throws {
+        let model = BNetConfig(baseURL: "www.google.com", env: "dev")
+        let googleURL = URL(string: "https://www.google.com")
+        XCTAssertNotNil(googleURL)
+        var req = URLRequest(url: googleURL!)
+        try? JSONParameterEncoding.encode(urlRequest: &req, object: model)
+        XCTAssertNotNil(req.httpBody)
+        let bodyStr = String(data: req.httpBody!, encoding: .utf8)
+        XCTAssertNotNil(bodyStr)
+        XCTAssertEqual(bodyStr!, "{\"env\":\"dev\",\"baseURL\":\"www.google.com\"}")
+    }
+
     func testPerformanceExample() {
         // This is an example of a performance test case.
         self.measure {
