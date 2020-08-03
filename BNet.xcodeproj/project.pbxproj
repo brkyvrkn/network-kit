@@ -10,6 +10,7 @@
 		F0338E6124D70A54007A515A /* codecov.yml in Resources */ = {isa = PBXBuildFile; fileRef = F0338E6024D70A54007A515A /* codecov.yml */; };
 		F0338E6524D71418007A515A /* BNetEnvironment+Values.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0338E6424D71418007A515A /* BNetEnvironment+Values.swift */; };
 		F05558D824D4F8D900074425 /* BNet.podspec in Resources */ = {isa = PBXBuildFile; fileRef = F05558D724D4F8D900074425 /* BNet.podspec */; };
+		F0A191E324D8285B00DA6B51 /* PlaceholderEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A191E224D8285B00DA6B51 /* PlaceholderEndpoint.swift */; };
 		F0C74DB624D4ECF600847EB0 /* BNet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0C74DAC24D4ECF600847EB0 /* BNet.framework */; };
 		F0C74DBB24D4ECF600847EB0 /* BNetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C74DBA24D4ECF600847EB0 /* BNetTests.swift */; };
 		F0C74DBD24D4ECF600847EB0 /* BNet.h in Headers */ = {isa = PBXBuildFile; fileRef = F0C74DAF24D4ECF600847EB0 /* BNet.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -73,6 +74,7 @@
 		F0338E6024D70A54007A515A /* codecov.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = codecov.yml; sourceTree = "<group>"; };
 		F0338E6424D71418007A515A /* BNetEnvironment+Values.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BNetEnvironment+Values.swift"; sourceTree = "<group>"; };
 		F05558D724D4F8D900074425 /* BNet.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; fileEncoding = 4; path = BNet.podspec; sourceTree = "<group>"; };
+		F0A191E224D8285B00DA6B51 /* PlaceholderEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderEndpoint.swift; sourceTree = "<group>"; };
 		F0C74DAC24D4ECF600847EB0 /* BNet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BNet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0C74DAF24D4ECF600847EB0 /* BNet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BNet.h; sourceTree = "<group>"; };
 		F0C74DB024D4ECF600847EB0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -297,6 +299,7 @@
 				F0C74DD424D4EE9600847EB0 /* BNetErrors.swift */,
 				F0C74DD124D4EE9600847EB0 /* BNetHeaderKeys.swift */,
 				F0C74DCF24D4EE9600847EB0 /* BNetHeaderValues.swift */,
+				F0A191E224D8285B00DA6B51 /* PlaceholderEndpoint.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -482,6 +485,7 @@
 				F0C74DD824D4EE9600847EB0 /* BNetHeaderKeys.swift in Sources */,
 				F0C74DCC24D4EE6D00847EB0 /* BNetHelper+Dictionary.swift in Sources */,
 				F0C74DDB24D4EE9600847EB0 /* BNetErrors.swift in Sources */,
+				F0A191E324D8285B00DA6B51 /* PlaceholderEndpoint.swift in Sources */,
 				F0C74DCD24D4EE6D00847EB0 /* BNetHelper+Encodable.swift in Sources */,
 				F0C74DDC24D4EE9600847EB0 /* BNetManager.swift in Sources */,
 				F0338E6524D71418007A515A /* BNetEnvironment+Values.swift in Sources */,
