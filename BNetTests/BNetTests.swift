@@ -441,7 +441,7 @@ class BNetTests: XCTestCase {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.01, execute: {
             placeholderExpectation.fulfill()
         })
-        waitForExpectations(timeout: 1) { _ in
+        waitForExpectations(timeout: 0.05) { _ in
             router.cancel()
             XCTAssertEqual(router.sessionTask!.state.rawValue, URLSessionTask.State.canceling.rawValue)
         }
