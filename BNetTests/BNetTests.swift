@@ -19,6 +19,22 @@ class BNetTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
+    // MARK: - Typealiases
+    func testTypeParameters() {
+        let temp = Parameters()
+        XCTAssertNotNil(temp as [String: Any])
+    }
+
+    func testTypeHTTPHeader() {
+        let temp = HTTPHeader()
+        XCTAssertNotNil(temp as [String: String])
+    }
+
+    func testTypeParametersMap() {
+        let temp = ParametersMap()
+        XCTAssertNotNil(temp as [String: Any])
+    }
+
     // MARK: - Parameter
     func testConstantParametersStringValue() {
         let param = Parameters(dictionaryLiteral: ("key1", "value1"))
@@ -259,6 +275,44 @@ class BNetTests: XCTestCase {
         XCTAssertEqual(HTTPHeaderKeys.ClientHints.save_data.rawValue, "Save-Data")
         XCTAssertEqual(HTTPHeaderKeys.ClientHints.viewport_width.rawValue, "Viewport-Width")
         XCTAssertEqual(HTTPHeaderKeys.ClientHints.width.rawValue, "Width")
+    }
+
+    // MARK: - HeaderValues
+    func testHeaderValuesContentType() {
+        let jsonVal = HTTPHeaderValues.ContentType.application(subtype: "json")
+        let audioVal = HTTPHeaderValues.ContentType.audio(subtype: "mp3")
+        let imageVal = HTTPHeaderValues.ContentType.image(subtype: "jpg")
+        let multipartVal = HTTPHeaderValues.ContentType.multipart(subtype: "form")
+        let textVal = HTTPHeaderValues.ContentType.text(subtype: "txt")
+        let videoVal = HTTPHeaderValues.ContentType.video(subtype: "mp4")
+        XCTAssertEqual(jsonVal.value, "application/json")
+        XCTAssertEqual(audioVal.value, "audio/mp3")
+        XCTAssertEqual(imageVal.value, "image/jpg")
+        XCTAssertEqual(multipartVal.value, "multipart/form")
+        XCTAssertEqual(textVal.value, "text/txt")
+        XCTAssertEqual(videoVal.value, "video/mp4")
+        XCTAssertEqual(jsonVal.parametrizedValue(with: ("_key", "val")), "application/json_key=val")
+    }
+
+    // MARK: - Encodables
+    func testEncodableDictionary() {
+        let config = BNetManager()._config
+        XCTAssertNotNil(config.dictionary)
+        XCTAssertEqual(config.dictionary?.keys.count, 2)
+        XCTAssertEqual(config.dictionary?.values.count, 2)
+    }
+
+    // MARK: - Environements
+    func testEnvironmentValues() {
+        let dev = BNetEnvironment.development(text: "dev")
+        let local = BNetEnvironment.local(text: "local")
+        let test = BNetEnvironment.test(text: "test")
+        let prod = BNetEnvironment.production(text: "prod")
+
+        XCTAssertEqual(dev.value, "dev")
+        XCTAssertEqual(local.value, "local")
+        XCTAssertEqual(test.value, "test")
+        XCTAssertEqual(prod.value, "prod")
     }
 
     func testPerformanceExample() {
