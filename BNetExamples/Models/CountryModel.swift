@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct CountryModel {
+struct CountryModel: Codable {
 
     //MARK:- Attributes
     var id: String

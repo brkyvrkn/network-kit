@@ -96,7 +96,7 @@ class ViewController: UIViewController {
 extension ViewController {
 
     func getCountries() {
-        let router = BNetManager.shared.accessRouter(endpointType: CountriesEndpoint.self)
+        let router = BNetManager.shared.accessRouter(endpointType: CountriesEndpoint<CountryModel>.self)
         self.isRequestActive = true
         router.request(.listAll, decoded: CountryListResponseModel.self, onSuccess: { (model) in
             self.countries = model.results.map { CountryModel(response: $0.value) }

@@ -9,13 +9,13 @@
 import Foundation
 import BNet
 
-enum CountriesEndpoint {
+enum CountriesEndpoint<T: Codable> {
     case listAll
 }
 
 extension CountriesEndpoint: BNetRequestProtocol {
 
-    var task: HTTPTask {
+    var task: HTTPTask<T> {
         let apiKeyArg = ("apiKey", CurrencyConverterConstants.apiKey.rawValue)
         let params = Parameters(dictionaryLiteral: apiKeyArg)
 
