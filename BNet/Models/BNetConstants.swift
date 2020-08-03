@@ -29,8 +29,9 @@ public typealias RouterClousure = (Data?, URLResponse?, Error?) -> ()
 /// - request: Plain request without any parameter
 /// - requestParams: Request with Json, Form or Query parameters
 /// - requestParamsWithHeader: Request with both parameters and additional header
-public enum HTTPTask {
+public enum HTTPTask<T: Codable> {
     case request
+    case requestJSON(body: T, queryParams: Parameters?, extraHeader: HTTPHeader?)
     case requestParams(parameters: ParametersMap)
     case requestParamsWithHeader(parameters: ParametersMap, extraHeader: HTTPHeader?)
 }

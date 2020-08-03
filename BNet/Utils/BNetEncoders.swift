@@ -52,7 +52,7 @@ public struct QueryParameterEncoding: BNetParameterEncoder {
                 components.setQueryItems(from: params)
                 urlRequest.url = components.url
             } else {
-                fatalError("Query parameter values must be String type")
+                throw BNetError.customError(id: 403, message: "Query parameter values must be String type")
             }
         }
     }
@@ -67,10 +67,14 @@ public struct JSONParameterEncoding: BNetParameterEncoder {
     /// - Throws: NetworkError.codingError
     public static func encode(urlRequest: inout URLRequest, parameters: Parameters) throws {
         do {
-            let jsonData = try JSONSerialization.data(withJSONObject: parameters, options: .prettyPrinted)
+            let jsonData = try? JSONSerialization.data(withJSONObject: parameters, options: .prettyPrinted)
             urlRequest.httpBody = jsonData
-        } catch {
-            throw BNetError.codingError
+        }
+    }
+    public static func encode<T: Codable>(urlRequest: inout URLRequest, object: T) throws {
+        do {
+            let jsonData = try JSONEncoder().encode(object)
+            urlRequest.httpBody = jsonData
         }
     }
 }

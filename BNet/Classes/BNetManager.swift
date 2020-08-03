@@ -10,7 +10,8 @@ import Foundation
 
 /// Main module to sustain the request
 public protocol BNetRequestProtocol {
-    var task: HTTPTask { get }
+    associatedtype T: Codable
+    var task: HTTPTask<T> { get }
     var baseURL: URL? { get }
     var path: String { get }
     var header: HTTPHeader? { get }

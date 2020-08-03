@@ -135,12 +135,24 @@ extension BNRouter {
         }
         do {
             switch route.task {
+            case .requestJSON(let body, let queryParams, let extraHeader):
+                try JSONParameterEncoding.encode(urlRequest: &request, object: body)
+                if let queryP = queryParams {
+                    try QueryParameterEncoding.encode(urlRequest: &request, parameters: queryP)
+                }
+                if let additional = extraHeader {
+                    for (k,v) in additional {
+                        request.addValue(v, forHTTPHeaderField: k)
+                    }
+                }
+                break
             case .request:
                 // Plain request does nothing with parameters (given NULL)
                 break
             case .requestParams(let parameters):
                 try configureParameters(urlRequest: &request, parametersMap: parameters)
                 break
+            
             case .requestParamsWithHeader(let parameters, let extraHeader):
                 try configureParameters(urlRequest: &request, parametersMap: parameters)
                 if let additional = extraHeader {
@@ -151,8 +163,6 @@ extension BNRouter {
                 break
             }
             return request
-        } catch {
-            throw BNetError.codingError
         }
     }
 
