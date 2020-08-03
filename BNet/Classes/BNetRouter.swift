@@ -50,9 +50,10 @@ open class BNRouter<T: BNetRequestProtocol> : BNetRouterProtocol {
     // MARK: - Properties
     //
     // Note: If you want to change decoding format, access and set the decoder property.
-    var sessionTask: URLSessionTask?
-    public var decoder = JSONDecoder()
-    public var timeout = TimeInterval(exactly: 25.0)!
+    open var sessionTask: URLSessionTask?
+    open var encoder = JSONEncoder()
+    open var decoder = JSONDecoder()
+    open var timeout = TimeInterval(exactly: 25.0)!
 
     // MARK: - Protocol Methods
     public func request<P: Codable>(_ route: T, decoded: P.Type, onSuccess: @escaping (P) -> Void, onFailure: @escaping (BNetError) -> Void) {

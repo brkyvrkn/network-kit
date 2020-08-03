@@ -302,6 +302,18 @@ class BNetTests: XCTestCase {
         XCTAssertEqual(config.dictionary?.values.count, 2)
     }
 
+    func testPlaceholderModel() {
+        let post = Post(userID: 1, id: 1, title: "Title", body: "Body")
+        XCTAssertEqual(post.userID, 1)
+        XCTAssertEqual(post.id, 1)
+        XCTAssertEqual(post.title, "Title")
+        XCTAssertEqual(post.body, "Body")
+        XCTAssertEqual(Post.CodingKeys.userID.rawValue, "userId")
+        XCTAssertEqual(Post.CodingKeys.id.rawValue, "id")
+        XCTAssertEqual(Post.CodingKeys.title.rawValue, "title")
+        XCTAssertEqual(Post.CodingKeys.body.rawValue, "body")
+    }
+
     // MARK: - Environements
     func testEnvironmentValues() {
         let dev = BNetEnvironment.development(text: "dev")
@@ -388,6 +400,74 @@ class BNetTests: XCTestCase {
         let bodyStr = String(data: req.httpBody!, encoding: .utf8)
         XCTAssertNotNil(bodyStr)
         XCTAssertEqual(bodyStr!, "{\"env\":\"dev\",\"baseURL\":\"www.google.com\"}")
+    }
+
+    // MARK: - Router
+    func testRouterRequest() {
+        let placeholderExpectation = expectation(description: "placeholder")
+        var placeholders: [Post]?
+        let router = BNetManager.shared.accessRouter(endpointType: PlaceholderEndpoint<Post>.self)
+        router.request(.jsonPlaceholder, decoded: [Post].self, onSuccess: { res in
+            placeholders = res
+            placeholderExpectation.fulfill()
+        }, onFailure: { err in
+            XCTFail(err.description)
+            placeholderExpectation.fulfill()
+        })
+        waitForExpectations(timeout: router.timeout) { (error) in
+            XCTAssertNotNil(placeholders)
+            XCTAssertNotEqual(placeholders?.count, 0)
+        }
+    }
+
+    func testRouterCancel() {
+        let router = BNetManager.shared.accessRouter(endpointType: PlaceholderEndpoint<Post>.self)
+        XCTAssertNil(router.sessionTask)
+        router.cancel()
+        XCTAssertNil(router.sessionTask)
+        XCTAssertNil(router.sessionTask?.currentRequest)
+    }
+
+    func testRouterRequestCancel() {
+        var placeholders: [Post]?
+        var error: BNetError?
+        let placeholderExpectation = expectation(description: "placeholder")
+        let router = BNetManager.shared.accessRouter(endpointType: PlaceholderEndpoint<Post>.self)
+        router.request(.jsonPlaceholder, decoded: [Post].self, onSuccess: { res in
+            placeholders = res
+        }, onFailure: { err in
+            error = err
+        })
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01, execute: {
+            placeholderExpectation.fulfill()
+        })
+        waitForExpectations(timeout: 1) { _ in
+            router.cancel()
+            XCTAssertEqual(router.sessionTask!.state.rawValue, URLSessionTask.State.canceling.rawValue)
+        }
+        addTeardownBlock {
+            XCTAssertNil(placeholders, "Session must not be completed due to cancelling")
+            XCTAssertNil(error, "Session task must not go into onSuccess or onFailure scope due to cancelling")
+        }
+    }
+
+    func testRouterRequestMissingURL() {
+        var placeholders: [Post]?
+        var error: BNetError?
+        let placeholderExpectation = expectation(description: "placeholder")
+        let router = BNetManager.shared.accessRouter(endpointType: PlaceholderEndpoint<Post>.self)
+        router.request(.missUrl, decoded: [Post].self, onSuccess: { res in
+            placeholders = res
+            placeholderExpectation.fulfill()
+        }, onFailure: { err in
+            error = err
+            placeholderExpectation.fulfill()
+        })
+        waitForExpectations(timeout: router.timeout) { _ in
+            XCTAssertNil(placeholders)
+            XCTAssertNotNil(error)
+            XCTAssertEqual(error?.description, BNetError.missingURLError.description)
+        }
     }
 
     func testPerformanceExample() {
