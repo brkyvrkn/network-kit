@@ -10,7 +10,7 @@ import Foundation
 
 struct CountryModel: Codable {
 
-    //MARK:- Attributes
+    // MARK: - Attributes
     var id: String
     var name: String
     var alpha3: String

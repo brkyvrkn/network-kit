@@ -4,6 +4,7 @@
 //
 //  Created by Berkay Vurkan on 15.10.2019.
 //
+// swiftlint:disable identifier_name
 
 import Foundation
 
@@ -69,7 +70,7 @@ public enum HTTPHeaderKeys {
         case viewport_width = "Viewport-Width"
         case width          = "Width"
     }
-    
+
     // MARK: - Conditionals
     /// Conditionals category
     ///
@@ -97,7 +98,7 @@ public enum HTTPHeaderKeys {
         case if_modified_since      = "If_Modified_Since"
         case if_unmodified_since    = "If-Unmodified-Since"
     }
-    
+
     // MARK: - Connection Management
     /// Connection Management category
     ///
@@ -226,7 +227,7 @@ public enum HTTPHeaderKeys {
         case via                = "Via"
     }
 
-    //MARK:- Redirects
+    // MARK: - Redirects
     /// Redirects category
     ///
     /// - location: Indicates the URL to redirect a page to.

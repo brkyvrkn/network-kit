@@ -11,7 +11,7 @@ import BNet
 
 class ViewController: UIViewController {
 
-    //MARK:- Outlets
+    // MARK: - Outlets
     @IBOutlet weak var bannerView: UIView!
     @IBOutlet weak var currencyIdLabel: UILabel!
     @IBOutlet weak var currencyNameLabel: UILabel!
@@ -22,20 +22,20 @@ class ViewController: UIViewController {
     }
     @IBOutlet weak var noDataLabel: UILabel!
 
-    //MARK:- Properties
+    // MARK: - Properties
     var isDarkModeOn = false
     var isRequestActive = false
     var refreshControl: UIRefreshControl?
     var countries = [CountryModel]() {
         didSet {
-            self.noDataLabel.isHidden = self.countries.count != 0
+            self.noDataLabel.isHidden = !self.countries.isEmpty
             if self.countryTableView != nil {
                 setTableView(self.countryTableView)
             }
         }
     }
 
-    //MARK:- Main
+    // MARK: - Main
     override func viewDidLoad() {
         super.viewDidLoad()
         initView()
@@ -78,21 +78,21 @@ class ViewController: UIViewController {
         }
     }
 
-    //MARK:- Actions
+    // MARK: - Actions
     @objc func refreshTableView() {
         if !self.isRequestActive {
             getCountries()
         }
     }
 
-    func endRefreshing(){
-        if let refreshControl = self.refreshControl, refreshControl.isRefreshing{
+    func endRefreshing() {
+        if let refreshControl = self.refreshControl, refreshControl.isRefreshing {
             refreshControl.endRefreshing()
         }
     }
 }
 
-//MARK:- Service Calling
+// MARK: - Service Calling
 extension ViewController {
 
     func getCountries() {
@@ -100,18 +100,18 @@ extension ViewController {
         self.isRequestActive = true
         router.request(.listAll, decoded: CountryListResponseModel.self, onSuccess: { (model) in
             self.countries = model.results.map { CountryModel(response: $0.value) }
-            self.countries.sort{ $0.name.lowercased() < $1.name.lowercased() }
+            self.countries.sort { $0.name.lowercased() < $1.name.lowercased() }
             self.isRequestActive = false
         }, onFailure: { (err) in
             self.noDataLabel.isHidden = false
             self.isRequestActive = false
             let popup = UIAlertController(title: "Error", message: err.description, preferredStyle: .alert)
-            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) in
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { _ in
                 self.endRefreshing()
-                self.noDataLabel.isHidden = self.countries.count != 0
+                self.noDataLabel.isHidden = !self.countries.isEmpty
                 return
             })
-            let refreshAction = UIAlertAction(title: "Try again", style: .default, handler: { (action) in
+            let refreshAction = UIAlertAction(title: "Try again", style: .default, handler: { _ in
                 self.getCountries()
                 return
             })
@@ -122,7 +122,7 @@ extension ViewController {
     }
 }
 
-//MARK:- Table View
+// MARK: - Table View
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

@@ -9,10 +9,10 @@
 import Foundation
 
 enum ServicePaths: String {
-    case countries  = "countries"
-    case currencies = "currencies"
-    case usage      = "usage"
-    case convert    = "convert"
+    case countries
+    case currencies
+    case usage
+    case convert
 }
 
 enum CurrencyConverterConstants: String {

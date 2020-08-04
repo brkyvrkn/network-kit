@@ -17,6 +17,6 @@ struct CountryResponseModel: Codable {
     var currencySymbol: String?
 }
 
-struct CountryListResponseModel: Codable {    
+struct CountryListResponseModel: Codable {
     var results: [String: CountryResponseModel]
 }

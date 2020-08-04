@@ -48,5 +48,5 @@ extension CountriesEndpoint: BNetRequestProtocol {
 
     var method: HTTPMethods {
         return .get
-    }    
+    }
 }

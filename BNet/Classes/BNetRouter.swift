@@ -72,18 +72,15 @@ open class BNRouter<T: BNetRequestProtocol> : BNetRouterProtocol {
                         return
                     }
                     switch result {
-                    case .success(_):
+                    case .success:
                         do {
                             let apiResponse = try self.decoder.decode(P.self, from: responseData)
-                            
                             DispatchQueue.main.async { onSuccess(apiResponse) }
                         } catch {
                             DispatchQueue.main.async { onFailure(BNetError.codingError) }
                         }
-                        break
                     case .redirection(let message), .failure(let message):
                         DispatchQueue.main.async { onFailure(BNetError.customError(id: 10, message: message)) }
-                        break
                     }
                 } else {
                     DispatchQueue.main.async { onFailure(BNetError.noResponse) }
@@ -123,6 +120,9 @@ extension BNRouter {
     /// - Returns: URLRequest object
     /// - Throws: Encoding error
     private func buildRequest(route: EndPoint) throws -> URLRequest {
+        if true {
+
+        }
         guard let base = route.baseURL else {
             throw BNetError.missingURLError
         }
@@ -130,8 +130,8 @@ extension BNRouter {
         var request = URLRequest(url: requestURL, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: timeout)
         request.httpMethod = route.method.rawValue
         if let header = route.header {
-            for (k,v) in header {
-                request.addValue(v, forHTTPHeaderField: k)
+            for (key, value) in header {
+                request.addValue(value, forHTTPHeaderField: key)
             }
         }
         do {
@@ -142,28 +142,26 @@ extension BNRouter {
                     try QueryParameterEncoding.encode(urlRequest: &request, parameters: queryP)
                 }
                 if let additional = extraHeader {
-                    for (k,v) in additional {
-                        request.addValue(v, forHTTPHeaderField: k)
+                    for (key, value) in additional {
+                        request.addValue(value, forHTTPHeaderField: key)
                     }
                 }
-                break
+                return request
             case .request:
                 // Plain request does nothing with parameters (given NULL)
-                break
+                return request
             case .requestParams(let parameters):
                 try configureParameters(urlRequest: &request, parametersMap: parameters)
-                break
-            
+                return request
             case .requestParamsWithHeader(let parameters, let extraHeader):
                 try configureParameters(urlRequest: &request, parametersMap: parameters)
                 if let additional = extraHeader {
-                    for (k,v) in additional {
-                        request.addValue(v, forHTTPHeaderField: k)
+                    for (key, value) in additional {
+                        request.addValue(value, forHTTPHeaderField: key)
                     }
                 }
-                break
+                return request
             }
-            return request
         }
     }
 
@@ -181,7 +179,6 @@ extension BNRouter {
             let json = parametersMap[ParameterType.json.rawValue]
             let form = parametersMap[ParameterType.x_www_form.rawValue]
             let query = parametersMap[ParameterType.query.rawValue]
-            
             if let body = form {
                 try FormBodyParameterEncoding.encode(urlRequest: &urlRequest, parameters: body)
             }

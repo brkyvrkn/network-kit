@@ -9,7 +9,6 @@ import Foundation
 
 // MARK: - Header Values
 public enum HTTPHeaderValues {
-    
     /// Values for Content Type key
     ///
     /// - application:  typically either uninterpreted binary data or information to be processed by a mail-based application. The primary subtype, "octet-stream", is to be used in the case of uninterpreted binary data, in which case the simplest recommended action is to offer to write the information into a file for the user.

@@ -26,7 +26,7 @@ extension Dictionary {
         var str = self.reduce("") {
             return $0 + "\($1.key)=\($1.value)&"
         }
-        if str.count > 0 {
+        if !str.isEmpty {
             str.removeLast()
         }
         return str

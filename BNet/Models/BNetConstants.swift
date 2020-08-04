@@ -5,6 +5,7 @@
 //  Created by Berkay Vurkan on 11.10.2019
 //  Copyright © 2019 Temp. All rights reserved.
 //
+// swiftlint:disable identifier_name
 
 import Foundation
 
@@ -14,14 +15,14 @@ import Foundation
  */
 public typealias Parameters = [String: Any]
 public typealias HTTPHeader = [String: String]
-public typealias ParametersMap = Dictionary<String, Parameters>
+public typealias ParametersMap = [String: Parameters]
 
 /*
  * Clousures
  */
 public typealias SuccessClousure = (Data) -> Void
 public typealias FailureClousure = (Int, String) -> Void
-public typealias RouterClousure = (Data?, URLResponse?, Error?) -> ()
+public typealias RouterClousure = (Data?, URLResponse?, Error?) -> Void
 
 // MARK: - HTTP Task
 /// Task for the request

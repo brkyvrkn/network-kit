@@ -5,6 +5,7 @@
 //  Created by Berkay Vurkan on 11.10.2019
 //  Copyright © 2019 Temp. All rights reserved.
 //
+// swiftlint:disable type_name
 
 import Foundation
 
@@ -34,11 +35,11 @@ open class BNetManager {
     public static let shared = BNetManager()
     private var token: String?
     public static var environment = BNetEnvironment.development(text: "dev")
-    internal var _config: BNetConfig
+    internal var config_: BNetConfig
 
     init() {
         self.token = nil
-        self._config = BNetConfig(baseURL: "", env: BNetManager.environment.value)
+        self.config_ = BNetConfig(baseURL: "", env: BNetManager.environment.value)
     }
 
     /// Setter for private variable
