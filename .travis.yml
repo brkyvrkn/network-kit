@@ -17,11 +17,11 @@ env:
     - SCHEME=BNetTests
     - PROJECT=BNet.xcodeproj
   jobs: 
-    - TEST_SDK=iphonesimulator13.6 OS=12.1 NAME='iPhone 7'
-    - TEST_SDK=iphonesimulator13.6 OS=12.2 NAME='iPhone 8'
-    - TEST_SDK=iphonesimulator13.6 OS=12.3 NAME='iPhone 11'
-    - TEST_SDK=iphonesimulator13.6 OS=13.0 NAME='iPhone 11 Pro'
-    - TEST_SDK=iphonesimulator13.6 OS='13.0' NAME='iPhone XR'
+    - TEST_SDK=iphonesimulator13.6 OS=12.1 NAME=iPhone 7
+    - TEST_SDK=iphonesimulator13.6 OS=12.2 NAME=iPhone 8
+    - TEST_SDK=iphonesimulator13.6 OS=12.3 NAME=iPhone 11
+    - TEST_SDK=iphonesimulator13.6 OS=13.0 NAME=iPhone 11 Pro
+    - TEST_SDK=iphonesimulator13.6 OS=13.0 NAME=iPhone XR
 
 
 osx_image: xcode11.6
