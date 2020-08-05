@@ -10,15 +10,17 @@ stages:
   - name: Validations (SwiftLint)
     if: type != cron
   - name: Unit Tests
-    if: type = cron
+    if: type != cron
 
 env:
   global:
+    - SCHEME=BNetTests
+    - PROJECT=BNet.xcodeproj
     - TEST_SDK=iphonesimulator13.6 
     - OS_11=11.4
     - OS_12=12.2
     - OS_13=13.0
-  matrix: 
+  jobs: 
     - TEST_SDK=$TEST_SDK OS=$OS_11 NAME='iPhone 7'
     - TEST_SDK=$TEST_SDK OS=$OS_12 NAME='iPhone 8'
     - TEST_SDK=$TEST_SDK OS=$OS_13 NAME='iPhone 11'
@@ -30,7 +32,7 @@ osx_image: xcode11.6
 before_install:
   chmod +x scripts/unit_test.sh scripts/install_swiftlint.sh scripts/linter.sh
 
-script: scripts/unit_test.sh -s $xcode_scheme -d "platform=iOS Simulator,name=$NAME,OS=$OS_11" -k $TEST_SDK -p $xcode_project
+script: scripts/unit_test.sh -s $SCHEME -d "platform=iOS Simulator,name=$NAME,OS=$OS_11" -k $TEST_SDK -p $PROJECT
 
 jobs:
   include:
