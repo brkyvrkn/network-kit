@@ -10,6 +10,7 @@
 		F0338E6124D70A54007A515A /* codecov.yml in Resources */ = {isa = PBXBuildFile; fileRef = F0338E6024D70A54007A515A /* codecov.yml */; };
 		F0338E6524D71418007A515A /* BNetEnvironment+Values.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0338E6424D71418007A515A /* BNetEnvironment+Values.swift */; };
 		F05558D824D4F8D900074425 /* BNet.podspec in Resources */ = {isa = PBXBuildFile; fileRef = F05558D724D4F8D900074425 /* BNet.podspec */; };
+		F09BBC0624DAA7EB0090F9AC /* lint_report.html in Resources */ = {isa = PBXBuildFile; fileRef = F09BBC0524DAA7EB0090F9AC /* lint_report.html */; };
 		F0A191E324D8285B00DA6B51 /* PlaceholderEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A191E224D8285B00DA6B51 /* PlaceholderEndpoint.swift */; };
 		F0A191E424D845D300DA6B51 /* BNetEnvironment+Values.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0338E6424D71418007A515A /* BNetEnvironment+Values.swift */; };
 		F0C74DB624D4ECF600847EB0 /* BNet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0C74DAC24D4ECF600847EB0 /* BNet.framework */; };
@@ -75,6 +76,7 @@
 		F0338E6024D70A54007A515A /* codecov.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = codecov.yml; sourceTree = "<group>"; };
 		F0338E6424D71418007A515A /* BNetEnvironment+Values.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BNetEnvironment+Values.swift"; sourceTree = "<group>"; };
 		F05558D724D4F8D900074425 /* BNet.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; fileEncoding = 4; path = BNet.podspec; sourceTree = "<group>"; };
+		F09BBC0524DAA7EB0090F9AC /* lint_report.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = lint_report.html; sourceTree = "<group>"; };
 		F0A191E224D8285B00DA6B51 /* PlaceholderEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderEndpoint.swift; sourceTree = "<group>"; };
 		F0C74DAC24D4ECF600847EB0 /* BNet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BNet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0C74DAF24D4ECF600847EB0 /* BNet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BNet.h; sourceTree = "<group>"; };
@@ -154,6 +156,7 @@
 				F0C74DDD24D4F00900847EB0 /* README.md */,
 				F05558D724D4F8D900074425 /* BNet.podspec */,
 				F0338E6024D70A54007A515A /* codecov.yml */,
+				F09BBC0524DAA7EB0090F9AC /* lint_report.html */,
 				F0C74DAE24D4ECF600847EB0 /* BNet */,
 				F0C74DB924D4ECF600847EB0 /* BNetTests */,
 				F0C74DE624D4F1D400847EB0 /* BNetExamples */,
@@ -444,6 +447,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F05558D824D4F8D900074425 /* BNet.podspec in Resources */,
+				F09BBC0624DAA7EB0090F9AC /* lint_report.html in Resources */,
 				F0C74DE024D4F00A00847EB0 /* LICENSE in Resources */,
 				F0338E6124D70A54007A515A /* codecov.yml in Resources */,
 				F0C74DDF24D4F00900847EB0 /* README.md in Resources */,
@@ -492,7 +496,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif which swiftlint >/dev/null; then\n  swiftlint\n  swiftlint lint --reporter html > ${PROJECT_DIR}/lint_report.html\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
