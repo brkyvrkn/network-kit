@@ -1,2 +1,2 @@
 
-./swiftlint_package/swiftlint lint --strict
+./swiftlint_package/swiftlint lint

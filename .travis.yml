@@ -19,7 +19,7 @@ jobs:
       script: scripts/linter.sh
     - name: Unit Tests (XCode 11.6)
       osx_image: xcode11.6
-      script: scripts/ci_test.sh -s BNetTests -d "platform=iOS Simulator,OS=$OS,name=$NAME" -sdk "$TEST_SDK" -p BNet.xcodeproj
+      script: scripts/ci_test.sh -s BNetTests -d "platform=iOS Simulator,OS=$OS,name=$NAME" -k $TEST_SDK -p BNet.xcodeproj
 
 after_success:
   - bash <(curl -s https://codecov.io/bash) -t 53c300ec-047b-4367-8435-7a491b08f264

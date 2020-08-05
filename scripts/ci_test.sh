@@ -1,10 +1,10 @@
 #!/bin/sh
 
-while getopts "s:d:sdk:p:" opt; do
+while getopts "s:d:k:p:" opt; do
     case $opt in
         s) scheme=${OPTARG};;
         d) destinations+=("$OPTARG");;
-        sdk) simulator=${OPTARG};;
+        k) simulator=${OPTARG};;
         p) project=${OPTARG};;
     esac
 done
