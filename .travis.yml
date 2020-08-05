@@ -11,14 +11,15 @@ env:
     - TEST_SDK=iphonesimulator13.6 OS=13.0 NAME='iPhone 11'
     - TEST_SDK=iphonesimulator13.6 OS=12.0 NAME='iPhone XR'
 
-    include:
-      - name: Validations (SwiftLint)
-        osx_image: xcode11.6
-        install: scripts/install_swiftlint.sh
-        script: scripts/lint.sh
-      - name: Unit Tests (XCode 11.6)
-        osx_image: xcode11.6
-        script: scripts/ci_test.sh -s BNetTests -d "platform=iOS Simulator,OS=$OS,name=$NAME" -sdk "$TEST_SDK" -p BNet.xcodeproj
+jobs:
+  include:
+    - name: Validations (SwiftLint)
+      osx_image: xcode11.6
+      install: scripts/install_swiftlint.sh
+      script: scripts/linter.sh
+    - name: Unit Tests (XCode 11.6)
+      osx_image: xcode11.6
+      script: scripts/ci_test.sh -s BNetTests -d "platform=iOS Simulator,OS=$OS,name=$NAME" -sdk "$TEST_SDK" -p BNet.xcodeproj
 
 #script:
 #  - set -o pipefail && xcodebuild test -enableCodeCoverage YES -project BNet.xcodeproj -scheme BNetTests -sdk $TEST_SDK -destination "platform=iOS Simulator,OS=$OS,name=$NAME" ONLY_ACTIVE_ARCH=YES
