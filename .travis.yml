@@ -1,9 +1,9 @@
-language: objeective-c
+language: objective-c
 xcode_project: BNet.xcodeproj # path to your xcodeproj folder
 xcode_scheme: BNetTests
 os: osx
 
-osx_image: xcode11.6
+# osx_image: xcode11.6
 env:
   jobs:
     - TEST_SDK=iphonesimulator13.6 OS=11.4 NAME='iPhone 7'
@@ -11,8 +11,17 @@ env:
     - TEST_SDK=iphonesimulator13.6 OS=13.0 NAME='iPhone 11'
     - TEST_SDK=iphonesimulator13.6 OS=12.0 NAME='iPhone XR'
 
-script:
-  - set -o pipefail && xcodebuild test -enableCodeCoverage YES -project BNet.xcodeproj -scheme BNetTests -sdk $TEST_SDK -destination "platform=iOS Simulator,OS=$OS,name=$NAME" ONLY_ACTIVE_ARCH=YES
+    include:
+      - name: Validations (SwiftLint)
+        osx_image: xcode11.6
+        install: scripts/install_swiftlint.sh
+        script: scripts/lint.sh
+      - name: Unit Tests (XCode 11.6)
+        osx_image: xcode11.6
+        script: scripts/ci_test.sh -s BNetTests -d "platform=iOS Simulator,OS=$OS,name=$NAME" -sdk "$TEST_SDK" -p BNet.xcodeproj
+
+#script:
+#  - set -o pipefail && xcodebuild test -enableCodeCoverage YES -project BNet.xcodeproj -scheme BNetTests -sdk $TEST_SDK -destination "platform=iOS Simulator,OS=$OS,name=$NAME" ONLY_ACTIVE_ARCH=YES
 
 after_success:
   - bash <(curl -s https://codecov.io/bash) -t 53c300ec-047b-4367-8435-7a491b08f264
