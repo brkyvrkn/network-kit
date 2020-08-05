@@ -6,11 +6,10 @@ os: osx
 before_install:
   - chmod +x scripts/ci_test.sh scripts/install_swiftlint.sh scripts/linter.sh
 env:
-  jobs:
-    - TEST_SDK=iphonesimulator13.6 OS=11.4 NAME='iPhone 7'
-    - TEST_SDK=iphonesimulator13.6 OS=12.0 NAME='iPhone 8'
-    - TEST_SDK=iphonesimulator13.6 OS=13.0 NAME='iPhone 11'
-    - TEST_SDK=iphonesimulator13.6 OS=12.0 NAME='iPhone XR'
+  - TEST_SDK=iphonesimulator13.6 OS=11.4 NAME='iPhone 7'
+  - TEST_SDK=iphonesimulator13.6 OS=12.0 NAME='iPhone 8'
+  - TEST_SDK=iphonesimulator13.6 OS=13.0 NAME='iPhone 11'
+  - TEST_SDK=iphonesimulator13.6 OS=12.0 NAME='iPhone XR'
 
 jobs:
   include:
