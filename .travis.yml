@@ -39,8 +39,8 @@ jobs:
 # Unit Testing
 # ============
 script: scripts/unit_test.sh -s "$SCHEME" -d "platform=iOS Simulator,name=$NAME,OS=$OS_11" -k "$TEST_SDK" -p "$PROJECT"
-  after_success:
-    - bash <(curl -s https://codecov.io/bash) -t 53c300ec-047b-4367-8435-7a491b08f264
+after_success:
+  - bash <(curl -s https://codecov.io/bash) -t 53c300ec-047b-4367-8435-7a491b08f264
 
 #notifications:
 #  email:
