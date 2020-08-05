@@ -23,10 +23,15 @@ before_install:
 
 env:
   global:
-    - TEST_SDK=iphonesimulator13.6 OS=11.4 NAME='iPhone 7'
-    - TEST_SDK=iphonesimulator13.6 OS=12.0 NAME='iPhone 8'
-    - TEST_SDK=iphonesimulator13.6 OS=13.0 NAME='iPhone 11'
-    - TEST_SDK=iphonesimulator13.6 OS=12.0 NAME='iPhone XR'
+    - TEST_SDK=iphonesimulator13.6 
+    - OS_11=11.4
+    - OS_12=12.2
+    - OS_13=13.0
+  matrix: 
+    - TEST_SDK=$TEST_SDK OS=$OS_11 NAME='iPhone 7'
+    - TEST_SDK=$TEST_SDK OS=$OS_12 NAME='iPhone 8'
+    - TEST_SDK=$TEST_SDK OS=$OS_13 NAME='iPhone 11'
+    - TEST_SDK=$TEST_SDK OS=$OS_13 NAME='iPhone XR'
 
 #notifications:
 #  email:
