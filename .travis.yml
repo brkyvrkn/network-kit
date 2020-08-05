@@ -15,7 +15,7 @@ stages:
 before_install:
   chmod +x scripts/ci_test.sh scripts/install_swiftlint.sh scripts/linter.sh
 
-job:
+jobs:
   # Validation Stage with lint
   - stage: Validations (SwiftLint)
     osx_image: xcode11.6
