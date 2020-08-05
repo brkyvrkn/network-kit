@@ -17,10 +17,11 @@ env:
     - SCHEME=BNetTests
     - PROJECT=BNet.xcodeproj
   jobs: 
-    - TEST_SDK=iphonesimulator13.6 OS=11.4 NAME='iPhone 7'
+    - TEST_SDK=iphonesimulator13.6 OS=12.1 NAME='iPhone 7'
     - TEST_SDK=iphonesimulator13.6 OS=12.2 NAME='iPhone 8'
-    - TEST_SDK=iphonesimulator13.6 OS=13.3 NAME='iPhone 11'
-    - TEST_SDK=iphonesimulator13.6 OS=13.3 NAME='iPhone XR'
+    - TEST_SDK=iphonesimulator13.6 OS=12.3 NAME='iPhone 11'
+    - TEST_SDK=iphonesimulator13.6 OS=13.0 NAME='iPhone 11 Pro'
+    - TEST_SDK=iphonesimulator13.6 OS='13.0' NAME='iPhone XR'
 
 
 osx_image: xcode11.6
@@ -38,7 +39,7 @@ jobs:
       
 # Unit Testing
 # ============
-script: scripts/unit_test.sh -s "$SCHEME" -d "platform=iOS Simulator,name=$NAME,OS=$OS_11" -k "$TEST_SDK" -p "$PROJECT"
+script: scripts/unit_test.sh -s "$SCHEME" -d "platform=iOS Simulator,name=$NAME,OS=$OS" -k "$TEST_SDK" -p "$PROJECT"
 after_success:
   - bash <(curl -s https://codecov.io/bash) -t 53c300ec-047b-4367-8435-7a491b08f264
 
