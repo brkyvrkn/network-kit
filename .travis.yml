@@ -4,6 +4,8 @@ xcode_scheme: BNetTests
 os: osx
 
 # osx_image: xcode11.6
+before_install:
+  - chmod +x ci_test.sh install_swiftlint.sh linter.sh
 env:
   jobs:
     - TEST_SDK=iphonesimulator13.6 OS=11.4 NAME='iPhone 7'
