@@ -10,9 +10,6 @@ while getopts "s:d:k:p:" opt; do
 done
 shift $((OPTIND -1))
 
-set -o pipefail
-
-xcodebuild build-for-testing -enableCodeCoverage YES -project $project -scheme $scheme -sdk $simulator -destination "${destinations[0]}" ONLY_ACTIVE_ARCH=YES | xcpretty;
 for destination in "${destinations[@]}"; do
-    set -o pipefail xcodebuild test-without-build -enableCodeCoverage YES -project $project -scheme $scheme -sdk $simulator -destination "$destination" ONLY_ACTIVE_ARCH=YES | xcpretty;
+    set -o pipefail && xcodebuild test -enableCodeCoverage YES -project $project -scheme $scheme -sdk $simulator -destination $destination ONLY_ACTIVE_ARCH=YES
 done
