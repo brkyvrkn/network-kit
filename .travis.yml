@@ -3,9 +3,8 @@ xcode_project: BNet.xcodeproj # path to your xcodeproj folder
 xcode_scheme: BNetTests
 os: osx
 
-# osx_image: xcode11.6
 before_install:
-  - chmod +x ci_test.sh install_swiftlint.sh linter.sh
+  - chmod +x scripts/ci_test.sh scripts/install_swiftlint.sh scripts/linter.sh
 env:
   jobs:
     - TEST_SDK=iphonesimulator13.6 OS=11.4 NAME='iPhone 7'
@@ -22,9 +21,6 @@ jobs:
     - name: Unit Tests (XCode 11.6)
       osx_image: xcode11.6
       script: scripts/ci_test.sh -s BNetTests -d "platform=iOS Simulator,OS=$OS,name=$NAME" -sdk "$TEST_SDK" -p BNet.xcodeproj
-
-#script:
-#  - set -o pipefail && xcodebuild test -enableCodeCoverage YES -project BNet.xcodeproj -scheme BNetTests -sdk $TEST_SDK -destination "platform=iOS Simulator,OS=$OS,name=$NAME" ONLY_ACTIVE_ARCH=YES
 
 after_success:
   - bash <(curl -s https://codecov.io/bash) -t 53c300ec-047b-4367-8435-7a491b08f264
