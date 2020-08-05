@@ -16,21 +16,17 @@ env:
   global:
     - SCHEME=BNetTests
     - PROJECT=BNet.xcodeproj
-    - TEST_SDK=iphonesimulator13.6 
-    - OS_11=11.4
-    - OS_12=12.2
-    - OS_13=13.0
   jobs: 
-    - TEST_SDK=$TEST_SDK OS=$OS_11 NAME='iPhone 7'
-    - TEST_SDK=$TEST_SDK OS=$OS_12 NAME='iPhone 8'
-    - TEST_SDK=$TEST_SDK OS=$OS_13 NAME='iPhone 11'
-    - TEST_SDK=$TEST_SDK OS=$OS_13 NAME='iPhone XR'
+    - TEST_SDK=iphonesimulator13.6 OS=11.4 NAME='iPhone 7'
+    - TEST_SDK=iphonesimulator13.6 OS=12.2 NAME='iPhone 8'
+    - TEST_SDK=iphonesimulator13.6 OS=13.3 NAME='iPhone 11'
+    - TEST_SDK=iphonesimulator13.6 OS=13.3 NAME='iPhone XR'
 
 
 osx_image: xcode11.6
 
 before_install:
-  chmod +x scripts/unit_test.sh scripts/install_swiftlint.sh scripts/linter.sh
+  chmod +x scripts/*.sh
 
 script: scripts/unit_test.sh -s $SCHEME -d "platform=iOS Simulator,name=$NAME,OS=$OS_11" -k $TEST_SDK -p $PROJECT
 
@@ -39,7 +35,7 @@ jobs:
     - stage: Validations (SwiftLint)
       install: scripts/install_swiftlint.sh
       script: scripts/linter.sh
-      #after_success: ./upload_lint_report
+      after_success: scripts/lint_upload.sh
 
 after_success:
   - bash <(curl -s https://codecov.io/bash) -t 53c300ec-047b-4367-8435-7a491b08f264
