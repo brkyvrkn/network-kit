@@ -11,5 +11,5 @@ done
 shift $((OPTIND -1))
 
 for destination in "${destinations[@]}"; do
-    set -o pipefail && xcodebuild test -enableCodeCoverage YES -project $project -scheme $scheme -sdk $simulator -destination $destination ONLY_ACTIVE_ARCH=YES
+    set -o pipefail && xcodebuild test -enableCodeCoverage YES -project $project -scheme $scheme -sdk "$simulator" -destination "$destination" ONLY_ACTIVE_ARCH=YES
 done
