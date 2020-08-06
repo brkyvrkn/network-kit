@@ -2,6 +2,7 @@ language: objective-c
 xcode_project: BNet.xcodeproj # path to your xcodeproj folder
 xcode_scheme: BNetTests
 os: osx
+rvm: 5.0
 
 # the following line is needed to enable the TravisCI build conditions
 conditions: v1
@@ -17,11 +18,11 @@ env:
     - SCHEME=BNetTests
     - PROJECT=BNet.xcodeproj
   jobs: 
-    - NAME="iPhone\ 7" OS="12.1" TEST_SDK=iphonesimulator13.6
-    - NAME="iPhone\ 8" OS="12.2" TEST_SDK=iphonesimulator13.6
-    - NAME="iPhone\ 11" OS="12.3" TEST_SDK=iphonesimulator13.6
-    - NAME="iPhone\ 11 Pro" OS="13.0" TEST_SDK=iphonesimulator13.6
-    - NAME="iPhone\ XR" OS="13.0" TEST_SDK=iphonesimulator13.6
+    - NAME="iPhone 7" OS="12.1" TEST_SDK=iphonesimulator13.6
+    - NAME="iPhone 8" OS="12.2" TEST_SDK=iphonesimulator13.6
+    - NAME="iPhone 11" OS="12.3" TEST_SDK=iphonesimulator13.6
+    - NAME="iPhone 11 Pro" OS="13.0" TEST_SDK=iphonesimulator13.6
+    - NAME="iPhone XR" OS="13.0" TEST_SDK=iphonesimulator13.6
 
 
 osx_image: xcode11.6
@@ -39,10 +40,14 @@ jobs:
       
 # Unit Testing
 # ============
-script: scripts/unit_test.sh -s "$SCHEME" -d "platform=iOS\ Simulator,name=$NAME,OS=$OS" -k "$TEST_SDK" -p "$PROJECT"
+script: scripts/unit_test.sh -s "$SCHEME" -d "platform=iOS Simulator,name=$NAME,OS=$OS" -k "$TEST_SDK" -p "$PROJECT"
 after_success:
   - bash <(curl -s https://codecov.io/bash) -t 53c300ec-047b-4367-8435-7a491b08f264
 
-#notifications:
-#  email:
-#    on_failure: never
+notifications: 
+  email:
+    recipients:
+      - one@example.com
+      - other@example.com
+    on_success: change
+    on_failure: always
