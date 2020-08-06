@@ -2,7 +2,6 @@ language: objective-c
 xcode_project: BNet.xcodeproj # path to your xcodeproj folder
 xcode_scheme: BNetTests
 os: osx
-rvm: 5.0
 
 # the following line is needed to enable the TravisCI build conditions
 conditions: v1
