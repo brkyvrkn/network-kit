@@ -47,7 +47,6 @@ after_success:
 notifications: 
   email:
     recipients:
-      - one@example.com
-      - other@example.com
+      - berkayvurkan@yahoo.com
     on_success: change
     on_failure: always

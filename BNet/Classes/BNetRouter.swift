@@ -13,7 +13,6 @@ import Foundation
  Based on the generic **Endpoint** protocol.
  
  ## Functions
- 
  - request(Endpoint, RouterCompletion):
     * Endpoint object will be implemented by custom
     * RouterCompletion is a clousure that is defined in the NetworkConstant.swift as typealias
@@ -22,7 +21,6 @@ import Foundation
  until the new task is created.
  
  ## Typealias ✨
- 
  - Endpoint: Protocol instance to generalize the request method.
  
  ## Example ⚙️
@@ -39,8 +37,6 @@ public protocol BNetRouterProtocol {
     func request<P:Codable>(_ route: EndPoint, decoded: P.Type, onSuccess: @escaping (P) -> Void, onFailure: @escaping (BNetError) -> Void)
     func wait()
     func cancel()
-    // Variable
-    var timeout: TimeInterval { get set }
 }
 
 // MARK: - Router Class
@@ -50,23 +46,22 @@ open class BNRouter<T: BNetRequestProtocol> : BNetRouterProtocol {
     // MARK: - Properties
     //
     // Note: If you want to change decoding format, access and set the decoder property.
-    open var sessionTask: URLSessionTask?
-    open var encoder = JSONEncoder()
-    open var decoder = JSONDecoder()
-    open var timeout = TimeInterval(exactly: 25.0)!
+    private var sessionTask: URLSessionTask?
+    private var encoder = JSONEncoder()
+    private var decoder = JSONDecoder()
+    private var timeout = TimeInterval(exactly: 25.0)!
 
     // MARK: - Protocol Methods
     public func request<P: Codable>(_ route: T, decoded: P.Type, onSuccess: @escaping (P) -> Void, onFailure: @escaping (BNetError) -> Void) {
-        let session = URLSession.shared
         do {
             let urlReq = try buildRequest(route: route)
-            sessionTask = session.dataTask(with: urlReq, completionHandler: { (data, response, error) in
+            sessionTask = URLSession.shared.dataTask(with: urlReq, completionHandler: { (data, response, error) in
                 if error != nil {
                     DispatchQueue.main.async { onFailure(BNetError.connectionFailed) }
                 }
                 if let httpResponse = response as? HTTPURLResponse {
                     //TODO: Transmit the server message to the user...!
-                    let result =  self.handleNetworkResponse(httpResponse)
+                    let result = self.handleNetworkResponse(httpResponse)
                     guard let responseData = data else {
                         DispatchQueue.main.async { onFailure(BNetError.noResponse) }
                         return
@@ -94,26 +89,6 @@ open class BNRouter<T: BNetRequestProtocol> : BNetRouterProtocol {
         sessionTask?.resume()
     }
 
-    /// Wait session
-    ///
-    /// - TODO: Takes argument as Time(ms)
-    public func wait() {
-        guard let task = sessionTask else {
-            return
-        }
-        task.suspend()
-    }
-
-    /// Cancel session
-    public func cancel() {
-        guard let task = sessionTask else {
-            return
-        }
-        task.cancel()
-    }
-}
-
-extension BNRouter {
     /// Request object which also contains the query and body parameters
     ///
     /// - Parameter route: Routing
@@ -165,6 +140,25 @@ extension BNRouter {
         }
     }
 
+    /// Wait session
+    public func wait() {
+        guard let task = sessionTask else {
+            return
+        }
+        task.suspend()
+    }
+
+    /// Cancel session
+    public func cancel() {
+        guard let task = sessionTask else {
+            return
+        }
+        task.cancel()
+    }
+}
+
+extension BNRouter {
+
     /// Generalize the parameters encoding function with given parameters
     ///
     /// - Parameters:
@@ -199,6 +193,20 @@ extension BNRouter {
     /// - Returns: Network Result object
     private func handleNetworkResponse(_ response: HTTPURLResponse) -> BNetResult<String> {
         switch response.statusCode {
+        case 100..<300:
+            return self.handleSuccessNetResponse(response)
+        case 304:
+            return .redirection(BNetResponse.notModified.message)
+        case 400...500:
+            return self.handleFailureNetResponse(response)
+        default:
+            return .failure("Undefined response which the status code is \(response.statusCode)")
+        }
+    }
+
+    // Helpers to reduce the function complexity
+    private func handleSuccessNetResponse(_ response: HTTPURLResponse) -> BNetResult<String> {
+        switch response.statusCode {
         case 100:
             return .success(BNetResponse.continue_.message)
         case 101:
@@ -213,8 +221,13 @@ extension BNRouter {
             return .success(BNetResponse.created.message)
         case 204:
             return .success(BNetResponse.noContent.message)
-        case 304:
-            return .redirection(BNetResponse.notModified.message)
+        default:
+            return .failure("Undefined response which the status code is \(response.statusCode)")
+        }
+    }
+
+    private func handleFailureNetResponse(_ response: HTTPURLResponse) -> BNetResult<String> {
+        switch response.statusCode {
         case 400:
             return .failure(BNetResponse.badRequest.message)
         case 401:
@@ -229,6 +242,16 @@ extension BNRouter {
             return .failure(BNetResponse.internalServerError.message)
         default:
             return .failure("Undefined response which the status code is \(response.statusCode)")
+        }
+    }
+}
+
+// MARK: - Accessor
+extension BNRouter {
+
+    var activeTask: URLSessionTask? {
+        get {
+            return self.sessionTask
         }
     }
 }

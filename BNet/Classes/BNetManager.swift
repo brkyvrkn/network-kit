@@ -19,7 +19,7 @@ public protocol BNetRequestProtocol {
     var method: HTTPMethods { get }
 }
 
-internal struct BNetConfig: Codable {
+public struct BNetConfig: Codable {
     var env: String
     var baseURL: String
 
@@ -32,28 +32,16 @@ internal struct BNetConfig: Codable {
 /// Manage all network access, routing and coding of data
 open class BNetManager {
 
+    // Shared instance
     public static let shared = BNetManager()
-    private var token: String?
-    public static var environment = BNetEnvironment.development(text: "dev")
-    internal var config_: BNetConfig
+    // Attributes
+    private var authToken: String?
+    private var environment = BNetEnvironment.development(text: "dev")
+    private var config_: BNetConfig
 
-    init() {
-        self.token = nil
-        self.config_ = BNetConfig(baseURL: "", env: BNetManager.environment.value)
-    }
-
-    /// Setter for private variable
-    /// - Parameter token: Authorization token
-    open func setToken(_ token: String) {
-        self.token = token
-    }
-
-    /// Getter for private variable
-    open func getToken() -> String {
-        if let token = self.token {
-            return token
-        }
-        return ""
+    private init() {
+        self.authToken = nil
+        self.config_ = BNetConfig(baseURL: "", env: self.environment.value)
     }
 
     /// Generic function is necessary to specify the router
@@ -74,5 +62,31 @@ open class BNetManager {
     open func accessRouter<T: BNetRequestProtocol>(endpointType: T.Type) -> BNRouter<T> {
         let router = BNRouter<T>()
         return router
+    }
+}
+
+// MARK: - Accessors
+extension BNetManager {
+
+    public var token: String? {
+        get {
+            return self.authToken
+        } set {
+            self.authToken = newValue
+        }
+    }
+
+    public var env: BNetEnvironment {
+        get {
+            return self.environment
+        } set {
+            self.environment = newValue
+        }
+    }
+
+    public var configurations: BNetConfig {
+        get {
+            return self.config_
+        }
     }
 }

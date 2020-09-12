@@ -296,7 +296,7 @@ class BNetTests: XCTestCase {
 
     // MARK: - Encodables
     func testEncodableDictionary() {
-        let config = BNetManager().config_
+        let config = BNetManager.shared.configurations
         XCTAssertNotNil(config.dictionary)
         XCTAssertEqual(config.dictionary?.keys.count, 2)
         XCTAssertEqual(config.dictionary?.values.count, 2)
@@ -330,9 +330,9 @@ class BNetTests: XCTestCase {
     // MARK: - Manager
     func testManagerToken() {
         let manager = BNetManager.shared
-        XCTAssertEqual(manager.getToken(), "")
-        manager.setToken("token")
-        XCTAssertEqual(manager.getToken(), "token")
+        XCTAssertEqual(manager.token, "")
+        manager.token = "token"
+        XCTAssertEqual(manager.token, "token")
     }
 
     // MARK: - Encoder
@@ -414,7 +414,7 @@ class BNetTests: XCTestCase {
             XCTFail(err.description)
             placeholderExpectation.fulfill()
         })
-        waitForExpectations(timeout: router.timeout) { _ in
+        waitForExpectations(timeout: 30) { _ in
             XCTAssertNotNil(placeholders)
             XCTAssertNotEqual(placeholders?.count, 0)
         }
@@ -422,10 +422,10 @@ class BNetTests: XCTestCase {
 
     func testRouterCancel() {
         let router = BNetManager.shared.accessRouter(endpointType: PlaceholderEndpoint<Post>.self)
-        XCTAssertNil(router.sessionTask)
+        XCTAssertNil(router.activeTask)
         router.cancel()
-        XCTAssertNil(router.sessionTask)
-        XCTAssertNil(router.sessionTask?.currentRequest)
+        XCTAssertNil(router.activeTask)
+        XCTAssertNil(router.activeTask?.currentRequest)
     }
 
 //    func testRouterRequestCancel() {
@@ -463,7 +463,7 @@ class BNetTests: XCTestCase {
             error = err
             placeholderExpectation.fulfill()
         })
-        waitForExpectations(timeout: router.timeout) { _ in
+        waitForExpectations(timeout: 30) { _ in
             XCTAssertNil(placeholders)
             XCTAssertNotNil(error)
             XCTAssertEqual(error?.description, BNetError.missingURLError.description)
